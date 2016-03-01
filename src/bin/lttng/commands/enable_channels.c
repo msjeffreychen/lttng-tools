@@ -60,6 +60,7 @@ enum {
 	OPT_LIST_OPTIONS,
 	OPT_TRACEFILE_SIZE,
 	OPT_TRACEFILE_COUNT,
+    OPT_SINGLETON
 };
 
 static struct lttng_handle *handle;
@@ -86,6 +87,7 @@ static struct poptOption long_options[] = {
 	{"buffers-global", 0,	POPT_ARG_VAL, &opt_buffer_global, 1, 0, 0},
 	{"tracefile-size", 'C',   POPT_ARG_INT, 0, OPT_TRACEFILE_SIZE, 0, 0},
 	{"tracefile-count", 'W',   POPT_ARG_INT, 0, OPT_TRACEFILE_COUNT, 0, 0},
+    {"singleton",      0,   POPT_ARG_NONE, 0, OPT_SINGLETON, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0}
 };
 
@@ -147,6 +149,7 @@ static void usage(FILE *ofp)
 	fprintf(ofp, "                           Used in conjunction with -C option, this will limit the number\n");
 	fprintf(ofp, "                           of files created to the specified count. 0 means unlimited.\n");
 	fprintf(ofp, "                               (default: %u)\n", DEFAULT_CHANNEL_TRACEFILE_COUNT);
+    fprintf(ofp, "      --singleton          Singleton uid mode\n");
 	fprintf(ofp, "\n");
 }
 
@@ -185,6 +188,9 @@ static void set_default_attr(struct lttng_domain *dom)
 	if (chan.attr.tracefile_size == -1) {
 		chan.attr.tracefile_size = default_attr.tracefile_size;
 	}
+    if (chan.attr.singleton == -1) {
+        chan.attr.singleton = default_attr.singleton;
+    }
 }
 
 /*
@@ -559,6 +565,10 @@ int cmd_enable_channels(int argc, const char **argv)
 					chan.attr.tracefile_count);
 			break;
 		}
+        case OPT_SINGLETON:
+            fprintf(stdout, "Enabled singleton uid mode\n");
+            chan.attr.singleton = 1;
+            break;
 		case OPT_LIST_OPTIONS:
 			list_cmd_options(stdout, long_options);
 			goto end;

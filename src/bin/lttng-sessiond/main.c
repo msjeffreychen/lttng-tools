@@ -2870,6 +2870,7 @@ static int create_ust_session(struct ltt_session *session,
 	lus->output_traces = session->output_traces;
 	lus->snapshot_mode = session->snapshot_mode;
 	lus->live_timer_interval = session->live_timer;
+    lus->singleton = session->singleton;
 	session->ust_session = lus;
 	if (session->shm_path[0]) {
 		strncpy(lus->root_shm_path, session->shm_path,
@@ -3208,6 +3209,7 @@ static int process_client_msg(struct command_ctx *cmd_ctx, int sock,
 		if (need_tracing_session) {
 			/* Create UST session if none exist. */
 			if (cmd_ctx->session->ust_session == NULL) {
+                cmd_ctx->session->singleton = cmd_ctx->lsm->u.channel.chan.attr.singleton;
 				ret = create_ust_session(cmd_ctx->session,
 						&cmd_ctx->lsm->domain);
 				if (ret != LTTNG_OK) {

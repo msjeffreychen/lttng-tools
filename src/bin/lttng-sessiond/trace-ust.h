@@ -118,6 +118,8 @@ struct ltt_ust_session {
 	unsigned int snapshot_mode;
 	unsigned int has_non_default_channel;
 	unsigned int live_timer_interval;	/* usec */
+    /* Singleton uid mode */
+    unsigned int singleton;
 
 	/* Metadata channel attributes. */
 	struct lttng_ust_channel_attr metadata_attr;

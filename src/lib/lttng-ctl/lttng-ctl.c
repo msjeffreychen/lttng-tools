@@ -1694,6 +1694,7 @@ void lttng_channel_set_default_attr(struct lttng_domain *domain,
 			attr->output = DEFAULT_UST_UID_CHANNEL_OUTPUT;
 			attr->switch_timer_interval = DEFAULT_UST_UID_CHANNEL_SWITCH_TIMER;
 			attr->read_timer_interval = DEFAULT_UST_UID_CHANNEL_READ_TIMER;
+            attr->singleton = 0;
 			break;
 		case LTTNG_BUFFER_PER_PID:
 		default:
@@ -1702,6 +1703,7 @@ void lttng_channel_set_default_attr(struct lttng_domain *domain,
 			attr->output = DEFAULT_UST_PID_CHANNEL_OUTPUT;
 			attr->switch_timer_interval = DEFAULT_UST_PID_CHANNEL_SWITCH_TIMER;
 			attr->read_timer_interval = DEFAULT_UST_PID_CHANNEL_READ_TIMER;
+            attr->singleton = 0;
 			break;
 		}
 	default:

@@ -109,6 +109,12 @@ struct ltt_session {
 	 * Timer set when the session is created for live reading.
 	 */
 	unsigned int live_timer;
+    
+    /*
+     * Singleton uid mode
+     */
+    unsigned int singleton;
+    
 	/*
 	 * Path where to keep the shared memory files.
 	 */

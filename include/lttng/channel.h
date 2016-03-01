@@ -43,6 +43,7 @@ struct lttng_channel_attr {
 	uint64_t tracefile_count;           /* number of tracefiles */
 	/* LTTng 2.3 padding limit */
 	unsigned int live_timer_interval;   /* usec */
+    int singleton;                      /* singleton mode */
 
 	char padding[LTTNG_CHANNEL_ATTR_PADDING1];
 };

@@ -4783,6 +4783,10 @@ void ust_app_global_update(struct ltt_ust_session *usess, struct ust_app *app)
 		return;
 	}
 
+    if (usess->singleton) {
+        app->uid = getuid();
+    }
+
 	if (trace_ust_pid_tracker_lookup(usess, app->pid)) {
 		ust_app_global_create(usess, app);
 	} else {
